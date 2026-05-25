@@ -85,14 +85,3 @@ export const CallService = {
     return response.data;
   }
 };
-
-export const { 
-  create, 
-  finish, 
-  createFinished, 
-  delete: deleteCall, 
-  getAll, 
-  getById, 
-  getMyCalls, 
-  getByMonth 
-} = CallService;

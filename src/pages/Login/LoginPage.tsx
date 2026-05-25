@@ -5,6 +5,7 @@ import { Input } from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
 import { sanitizeInput } from '@utils/security';
 import './Login.module.css';
+import { useEffect } from 'react';
 
 interface LoginFormState {
   userLogin: string;
@@ -17,9 +18,10 @@ interface FormErrors {
 }
 
 export default function LoginPage(): JSX.Element {
-  const { login, loading } = useAuth();
+  const { login, loading, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const from = (location.state as { from?: Location })?.from?.pathname || '/dashboard';
   
   const [formData, setFormData] = useState<LoginFormState>({
     userLogin: '',
@@ -30,11 +32,12 @@ export default function LoginPage(): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
 
   // Redireciona se já estiver autenticado
-  if (useAuth().isAuthenticated()) {
-    const from = (location.state as { from?: Location })?.from?.pathname || '/dashboard';
-    navigate(from, { replace: true });
-    return <></>;
-  }
+  useEffect(() => {
+    if (isAuthenticated()) {    
+      navigate(from, { replace: true });
+      return <></>;
+    }
+  }, []);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -120,17 +123,6 @@ export default function LoginPage(): JSX.Element {
             placeholder="Digite sua senha"
             autoComplete="current-password"
             disabled={loading}
-            iconRight={
-              <button
-                type="button"
-                onClick={() => setShowPassword(prev => !prev)}
-                className="input-toggle-visibility"
-                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
-                tabIndex={-1}
-              >
-                {showPassword ? '🙈' : '👁️'}
-              </button>
-            }
           />
 
           <Button

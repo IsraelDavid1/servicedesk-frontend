@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     error,
     login,
     logout,
-    isAuthenticated: storage.isAuthenticated,
+    isAuthenticated: !!user,
     hasRole
   }), [user, loading, error, login, logout, hasRole]);
 

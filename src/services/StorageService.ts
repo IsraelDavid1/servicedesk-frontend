@@ -1,6 +1,6 @@
 import { StoredUserData } from '@types/auth';
 
-const TOKEN_KEY = 'sd_token';
+const TOKEN_KEY = 'token';
 const USER_KEY = 'sd_user';
 
 // Cache em memória para maior segurança
@@ -17,7 +17,7 @@ export const storage = {
     if (!token || typeof token !== 'string') {
       throw new Error('Token inválido');
     }
-    
+
     memoryCache.token = token;
     localStorage.setItem(TOKEN_KEY, token);
   },

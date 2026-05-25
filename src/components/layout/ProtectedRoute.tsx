@@ -22,7 +22,7 @@ interface ProtectedRouteProps {
  * } />
  */
 export const ProtectedRoute = ({ 
-  roles = null, 
+  roles = undefined, 
   redirectToLogin = true,
   fallback = null
 }: ProtectedRouteProps): JSX.Element | null => {
@@ -31,7 +31,7 @@ export const ProtectedRoute = ({
 
   if (loading) {
     return (
-      <div className="loading-container">
+      <div className="loading-container" aria-live='polite' aria-label='Carregando'>
         <LoadingSpinner size="large" />
         <p>Carregando autenticação...</p>
       </div>

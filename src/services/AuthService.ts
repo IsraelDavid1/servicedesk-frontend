@@ -58,6 +58,3 @@ export const AuthService = {
     return null;
   }
 };
-
-// Named exports para tree-shaking
-export const { login, register, validateSession, logout, refreshToken } = AuthService;

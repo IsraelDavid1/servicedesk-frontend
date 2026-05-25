@@ -4,6 +4,8 @@ import {
   useState,
   useCallback
 } from 'react';
+import { useId } from 'react';
+
 import './Input.css';
 
 export type InputType = 
@@ -46,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const [isFocused, setIsFocused] = useState(false);
-    const hasValue = Boolean(value);
+    const hasValue = value !== undefined && value !== '';
 
     const handleChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +61,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onClear?.();
     }, [onClear]);
 
-    const inputId = props.id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const generateId = useId();
+    const inputId = props.id || generateId;
 
     return (
       <div className={`input-wrapper input-wrapper--${size} ${className}`}>
