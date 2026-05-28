@@ -9,18 +9,6 @@ interface ProtectedRouteProps {
   fallback?: React.ReactNode;
 }
 
-/**
- * Componente para proteger rotas com autenticação e autorização
- * 
- * @example
- * // Rota para qualquer usuário autenticado
- * <Route element={<ProtectedRoute />} />
- * 
- * // Rota apenas para ADMIN e TECH
- * <Route element={
- *   <ProtectedRoute roles={[UserRole.ADMIN, UserRole.TECH]} />
- * } />
- */
 export const ProtectedRoute = ({ 
   roles = undefined, 
   redirectToLogin = true,
@@ -38,7 +26,7 @@ export const ProtectedRoute = ({
     );
   }
 
-  if (!isAuthenticated()) {
+  if (!isAuthenticated) {
     if (redirectToLogin) {
       return (
         <Navigate 

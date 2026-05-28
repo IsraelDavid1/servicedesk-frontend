@@ -1,11 +1,11 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '@hooks/useAuth';
 import { Input } from '@components/ui/Input';
 import { Button } from '@components/ui/Button';
 import { sanitizeInput } from '@utils/security';
-import './Login.module.css';
-import { useEffect } from 'react';
+import styles from './Login.module.css';
+
 
 interface LoginFormState {
   userLogin: string;
@@ -21,21 +21,19 @@ export default function LoginPage(): JSX.Element {
   const { login, loading, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as { from?: Location })?.from?.pathname || '/dashboard';
-  
+
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/dashboard';
+
   const [formData, setFormData] = useState<LoginFormState>({
     userLogin: '',
-    password: ''
+    password: '',
   });
-  
   const [errors, setErrors] = useState<FormErrors>({});
   const [showPassword, setShowPassword] = useState(false);
 
-  // Redireciona se já estiver autenticado
   useEffect(() => {
-    if (isAuthenticated()) {    
+    if (isAuthenticated) {
       navigate(from, { replace: true });
-      return <></>;
     }
   }, []);
 
@@ -60,46 +58,38 @@ export default function LoginPage(): JSX.Element {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    
+
     setFormData(prev => ({
       ...prev,
-      [name]: sanitizeInput(value)
+      [name]: sanitizeInput(value),
     }));
-    
-    // Limpa erro do campo ao digitar
+
     if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: undefined
-      }));
+      setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
-    const success = await login({
+
+    await login({
       userLogin: formData.userLogin.trim(),
-      password: formData.password
+      password: formData.password,
     });
-    
-    if (success) {
-      const from = (location.state as { from?: Location })?.from?.pathname || '/dashboard';
-      navigate(from, { replace: true });
-    }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <header className="login-header">
+    <div className={styles['login-page']}>
+      <div className={styles['login-container']}>
+        <header className={styles['login-header']}>
           <h1>Service Desk</h1>
           <p>Sistema Corporativo de Chamados</p>
         </header>
 
-        <form onSubmit={handleSubmit} className="login-form" noValidate>
+        {}
+        <form onSubmit={handleSubmit} className={styles['login-form']} noValidate>
           <Input
             label="Login"
             name="userLogin"
@@ -123,6 +113,16 @@ export default function LoginPage(): JSX.Element {
             placeholder="Digite sua senha"
             autoComplete="current-password"
             disabled={loading}
+            iconRight={
+              <button
+                type="button"
+                onClick={() => setShowPassword(prev => !prev)}
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
+            }
           />
 
           <Button
@@ -133,15 +133,15 @@ export default function LoginPage(): JSX.Element {
             loading={loading}
             disabled={loading}
           >
-            Entrar
+            {loading ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>
 
-        <footer className="login-footer">
+        <footer className={styles['login-footer']}>
           <p>
             <Link to="/register">Criar nova conta</Link>
           </p>
-          <p className="login-footer__copyright">
+          <p className={styles['login-footer__copyright']}>
             © {new Date().getFullYear()} Service Desk Corporate
           </p>
         </footer>

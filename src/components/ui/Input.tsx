@@ -6,8 +6,6 @@ import {
 } from 'react';
 import { useId } from 'react';
 
-import './Input.css';
-
 export type InputType = 
   | 'text' 
   | 'email' 

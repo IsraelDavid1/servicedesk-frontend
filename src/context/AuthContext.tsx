@@ -13,7 +13,7 @@ import * as AuthService from '@services/AuthService';
 import { storage } from '@services/StorageService';
 import { AuthContextType, UserResponseDTO, UserRole, AuthenticationDTO } from '@types';
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
