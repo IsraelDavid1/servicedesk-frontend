@@ -1,4 +1,4 @@
-import { CallState, CALL_STATE_LABELS } from '@types/enums';
+import { CallState, CALL_STATE_LABELS } from '@models/enums';
 
 interface CallStatusBadgeProps {
   status: CallState;

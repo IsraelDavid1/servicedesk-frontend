@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCallById, useDeleteCall, useFinishCall } from '@hooks/useCalls';
 import { useAuth } from '@hooks/useAuth';
-import { UserRole, CALL_STATE_LABELS } from '@types/enums';
+import { UserRole, CALL_STATE_LABELS } from '@models/enums';
 import { ASSETS_LABELS, ASSETS_TYPE_LABELS, ROUTES } from '@utils/constants';
 import { formatDateDisplay, formatDuration } from '@utils/formatters';
 import { CallStatusBadge } from '@components/calls/CallStatusBadge';

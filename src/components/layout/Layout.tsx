@@ -14,8 +14,6 @@ export function Layout() {
           padding: '32px 24px',
         }}
       >
-        {}
-        {}
         <Outlet />
       </main>
     </div>

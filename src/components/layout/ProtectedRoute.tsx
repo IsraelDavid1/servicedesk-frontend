@@ -1,5 +1,5 @@
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
-import { UserRole } from '@types/enums';
+import { UserRole } from '@models/enums';
 import { useAuth } from '@hooks/useAuth';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 
@@ -13,7 +13,7 @@ export const ProtectedRoute = ({
   roles = undefined, 
   redirectToLogin = true,
   fallback = null
-}: ProtectedRouteProps): JSX.Element | null => {
+}: ProtectedRouteProps): React.ReactNode => {
   const { isAuthenticated, loading, hasRole } = useAuth();
   const location = useLocation();
 

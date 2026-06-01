@@ -1,7 +1,7 @@
 import { useAuth } from '@hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@utils/constants';
-import { UserRole, USER_ROLE_LABELS } from '@types/enums';
+import { UserRole, USER_ROLE_LABELS } from '@models/enums';
 
 const roleBadgeStyle: Record<UserRole, React.CSSProperties> = {
   [UserRole.ADMIN]: { backgroundColor: 'rgba(168,85,247,0.15)', color: '#a855f7', border: '1px solid rgba(168,85,247,0.3)' },

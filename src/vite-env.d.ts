@@ -10,11 +10,3 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
-
-// Extender tipos do React para melhor DX
-declare module 'react' {
-  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    // Suporte para atributos data-* tipados
-    [key: `data-${string}`]: string | number | boolean | undefined;
-  }
-}

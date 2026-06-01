@@ -1,8 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import * as CallService from '@services/CallService';
-import { CreateCallDTO, FinishCallDTO, CallFormData } from '@types/call';
-import { formatDateForApi } from '@utils/formatters';
+import { CallService } from '@/services/CallService';
+import { CreateCallDTO, FinishCallDTO, CallFormData } from '@models/call';
 
 
 const QUERY_KEYS = {
@@ -45,7 +44,7 @@ export function useCreateCall() {
         beginDate: formData.beginDate,
         techLogin: formData.techLogin,
         asset: formData.asset,
-        assetType: formData.assetType,
+        assetsType: formData.assetsType,
         department: formData.department,
         firstAnalysis: formData.firstAnalysis,
       };
@@ -75,7 +74,7 @@ export function useFinishCall() {
     }) => {
       const payload: FinishCallDTO = {
         solution: finishData.solution,
-        endDate: formatDateForApi(finishData.endDate),
+        endDate: finishData.endDate,
       };
       return CallService.finish(callId, payload);
     },
@@ -94,7 +93,7 @@ export function useDeleteCall() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (callId: string) => CallService.deleteCall(callId),
+    mutationFn: (callId: string) => CallService.delete(callId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_CALLS });
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.MY_CALLS });

@@ -3,7 +3,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 export interface ApiError {
   timestamp: string;
   status: number;
-  error: string;
+  error: string | undefined;
   message: string;
   path: string;
 }

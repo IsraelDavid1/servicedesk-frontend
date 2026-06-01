@@ -9,9 +9,9 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import * as AuthService from '@services/AuthService';
+import { AuthService } from '@services/AuthService';
 import { storage } from '@services/StorageService';
-import { AuthContextType, UserResponseDTO, UserRole, AuthenticationDTO } from '@types';
+import { AuthContextType, UserResponseDTO, UserRole, AuthenticationDTO } from '@models';
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -27,7 +27,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
+export const AuthProvider = ({ children }: AuthProviderProps): React.JSX.Element => {
   const [user, setUser] = useState<UserResponseDTO | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     error,
     login,
     logout,
-    isAuthenticated: !!user,
+    isAuthenticated: () => !!user,
     hasRole
   }), [user, loading, error, login, logout, hasRole]);
 

@@ -63,7 +63,8 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, './src/pages'),
       '@routes': path.resolve(__dirname, './src/routes'),
       '@services': path.resolve(__dirname, './src/services'),
-      '@types': path.resolve(__dirname, './src/types'),
+      //mudança de @types para @models para eliminar conflito com package
+      '@models': path.resolve(__dirname, './src/types'),
       '@utils': path.resolve(__dirname, './src/utils')
     }
   },
@@ -81,14 +82,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom'],
-          'utils': ['axios', 'date-fns', 'react-hot-toast']
-        }
-      }
-    }
+    sourcemap: false,
+    rollupOptions: {}
   }
 });

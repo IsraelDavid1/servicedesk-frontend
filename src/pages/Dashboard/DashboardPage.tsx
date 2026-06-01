@@ -1,6 +1,6 @@
 import { useAuth } from '@hooks/useAuth';
 import { useMyCalls, useAllCalls } from '@hooks/useCalls';
-import { UserRole, CallState, CALL_STATE_LABELS } from '@types/enums';
+import { UserRole, CallState } from '@models/enums';
 import { CallCard } from '@components/calls/CallCard';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@utils/constants';
@@ -46,7 +46,6 @@ export default function DashboardPage() {
             {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
           </p>
         </div>
-        {isTechOrAdmin && (
           <button
             onClick={() => navigate(ROUTES.CALL_NEW)}
             style={{
@@ -57,7 +56,6 @@ export default function DashboardPage() {
           >
             + Novo Chamado
           </button>
-        )}
       </div>
 
       {/* Stats */}

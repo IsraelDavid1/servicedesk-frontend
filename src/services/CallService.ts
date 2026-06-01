@@ -5,7 +5,7 @@ import {
   CreateCallDTO,
   CreateCompleteCallDTO,
   FinishCallDTO
-} from '@types/call';
+} from '@models/call';
 
 const CALL_ENDPOINTS = {
   BASE: '/call',
@@ -27,7 +27,7 @@ export const CallService = {
   async finish(callId: string, finishData: FinishCallDTO): Promise<CallResponseDTO> {
     const payload: FinishCallDTO = {
       ...finishData,
-      endDate: formatDateForApi(finishData.endDate)
+      endDate: finishData.endDate
     };
     
     const response = await api.patch<CallResponseDTO>(
@@ -44,7 +44,7 @@ export const CallService = {
     const payload: CreateCompleteCallDTO = {
       ...callData,
       beginDate: formatDateForApi(callData.beginDate),
-      endDate: formatDateForApi(callData.endDate)
+      endDate: callData.endDate
     };
     
     const response = await api.post<CallResponseDTO>(

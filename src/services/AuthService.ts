@@ -5,7 +5,7 @@ import {
   LoginResponseDTO,
   UserResponseDTO,
   RegisterDTO
-} from '@types/auth';
+} from '@models/auth';
 
 const AUTH_ENDPOINTS = {
   LOGIN: '/auth/login',
@@ -57,4 +57,15 @@ export const AuthService = {
     // TODO: Implementar quando backend suportar refresh tokens
     return null;
   }
+};
+
+export const register = async (data: {
+  name: string;
+  email: string;
+  userLogin: string;
+  password: string;
+}) => {
+  const response = await api.post('/auth/register', data);
+
+  return response.data;
 };

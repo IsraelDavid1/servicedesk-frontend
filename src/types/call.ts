@@ -18,26 +18,26 @@ export interface CreateCallDTO {
   beginDate: string;
   techLogin: string;
   asset: Assets;
-  assetType: AssetsType;
+  assetsType: AssetsType;
   department: string;
   firstAnalysis: string;
 }
 
 export interface CreateCompleteCallDTO extends CreateCallDTO {
   solution: string;
-  endDate: string;
+  endDate: Date;
 }
 
 export interface FinishCallDTO {
   solution: string;
-  endDate: string;
+  endDate: Date;
 }
 
 export interface CallFormData {
   beginDate: Date;
   techLogin: string;
   asset: Assets;
-  assetType: AssetsType;
+  assetsType: AssetsType;
   department: string;
   firstAnalysis: string;
   solution?: string;

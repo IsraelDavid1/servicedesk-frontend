@@ -1,4 +1,4 @@
-import { Assets, AssetsType } from '@types/enums';
+import { Assets, AssetsType } from '@models/enums';
 
 export const ASSETS_LABELS: Record<Assets, string> = {
   [Assets.HARDWARE]: 'Hardware',

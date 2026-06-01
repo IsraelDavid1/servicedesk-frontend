@@ -6,6 +6,8 @@ import { Button } from '@components/ui/Button';
 import { sanitizeInput } from '@utils/security';
 import styles from './Login.module.css';
 
+import './Login.module.css'
+
 
 interface LoginFormState {
   userLogin: string;
@@ -17,7 +19,7 @@ interface FormErrors {
   password?: string;
 }
 
-export default function LoginPage(): JSX.Element {
+export default function LoginPage(): React.JSX.Element {
   const { login, loading, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,7 +34,7 @@ export default function LoginPage(): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated()) {
       navigate(from, { replace: true });
     }
   }, []);
@@ -88,7 +90,6 @@ export default function LoginPage(): JSX.Element {
           <p>Sistema Corporativo de Chamados</p>
         </header>
 
-        {}
         <form onSubmit={handleSubmit} className={styles['login-form']} noValidate>
           <Input
             label="Login"

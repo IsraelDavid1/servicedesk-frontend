@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAllCalls, useMyCalls, useDeleteCall, useFinishCall } from '@hooks/useCalls';
 import { useAuth } from '@hooks/useAuth';
-import { UserRole, CallState } from '@types/enums';
+import { UserRole, CallState } from '@models/enums';
 import { CallCard } from '@components/calls/CallCard';
 import { ROUTES } from '@utils/constants';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
@@ -51,11 +51,9 @@ export default function CallsListPage() {
         <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#f1f5f9', margin: 0 }}>
           {isTechOrAdmin ? 'Todos os chamados' : 'Meus chamados'}
         </h1>
-        {isTechOrAdmin && (
           <Button variant="primary" size="sm" onClick={() => navigate(ROUTES.CALL_NEW)}>
             + Novo Chamado
           </Button>
-        )}
       </div>
 
       {/* Filtros */}

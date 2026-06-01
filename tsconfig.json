@@ -26,6 +26,7 @@
 
     /* Paths para imports limpos */
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["src/*"],
       "@api/*": ["src/api/*"],
@@ -34,7 +35,11 @@
       "@hooks/*": ["src/hooks/*"],
       "@pages/*": ["src/pages/*"],
       "@services/*": ["src/services/*"],
-      "@types/*": ["src/types/*"],
+      //mudança de @types para @models para eliminar conflito com package
+      "@models": ["src/types/index.ts"],
+      "@models/*": ["src/types/*"],
+      "@routes": ["src/routes/index"],
+      "@routes/*": ["src/routes/*"],
       "@utils/*": ["src/utils/*"]
     },
 

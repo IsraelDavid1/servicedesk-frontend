@@ -1,4 +1,4 @@
-import { CallResponseDTO } from '@types/call';
+import { CallResponseDTO } from '@models/call';
 import { ASSETS_LABELS, ASSETS_TYPE_LABELS } from '@utils/constants';
 import { formatDateOnly, formatDuration } from '@utils/formatters';
 import { CallStatusBadge } from './CallStatusBadge';
@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 interface CallCardProps {
   call: CallResponseDTO;
-  onDelete?: (id: string) => void;
-  onFinish?: (id: string) => void;
+  onDelete?: ((id: string) => void) | undefined;
+  onFinish?: ((id: string) => void) | undefined;
   showActions?: boolean;
 }
 

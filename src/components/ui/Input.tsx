@@ -18,7 +18,7 @@ export type InputType =
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
-  error?: string;
+  error?: string | undefined;
   hint?: string;
   type?: InputType;
   size?: 'sm' | 'md' | 'lg';

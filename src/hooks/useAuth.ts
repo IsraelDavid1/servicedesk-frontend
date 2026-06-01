@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '@context/AuthContext';
-import { AuthContextType } from '@types';
+import { AuthContextType } from '@models';
 
 /**
  * Hook tipado para acesso ao contexto de autenticação

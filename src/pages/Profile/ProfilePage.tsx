@@ -1,5 +1,5 @@
 import { useAuth } from '@hooks/useAuth';
-import { USER_ROLE_LABELS } from '@types/enums';
+import { USER_ROLE_LABELS } from '@models/enums';
 
 export default function ProfilePage() {
   const { user, logout } = useAuth();

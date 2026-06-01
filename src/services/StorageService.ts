@@ -1,4 +1,4 @@
-import { StoredUserData } from '@types/auth';
+import { StoredUserData } from '@models/auth';
 
 const TOKEN_KEY = 'token';
 const USER_KEY = 'sd_user';
@@ -32,9 +32,9 @@ export const storage = {
     }
     
     // Remove dados sensíveis
-    const { password, token, ...safeData } = userData as Record<string, unknown>;
+    const { password, token, ...safeData } = userData as unknown as Record<string, unknown>;
     
-    memoryCache.user = safeData as StoredUserData;
+    memoryCache.user = safeData as unknown as StoredUserData;
     localStorage.setItem(USER_KEY, JSON.stringify(safeData));
   },
 

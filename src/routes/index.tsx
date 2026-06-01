@@ -2,17 +2,18 @@ import { createBrowserRouter, Outlet, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AuthProvider } from '@context/AuthContext';
 import { ProtectedRoute } from '@components/layout/ProtectedRoute';
+import { Layout } from '@components/layout/Layout';
 import { Toaster } from 'react-hot-toast';
-import { UserRole } from '@types/enums';
 import LoginPage from '@pages/Login/LoginPage';
 
-const DashboardPage  = lazy(() => import('@pages/Dashboard/DashboardPage'));
-const CallsListPage  = lazy(() => import('@pages/Calls/CallsListPage'));
+const DashboardPage   = lazy(() => import('@pages/Dashboard/DashboardPage'));
+const CallsListPage   = lazy(() => import('@pages/Calls/CallsListPage'));
 const CallDetailsPage = lazy(() => import('@pages/Calls/CallDetailsPage'));
-const CreateCallPage = lazy(() => import('@pages/Calls/CreateCallPage'));
-const ProfilePage    = lazy(() => import('@pages/Profile/ProfilePage'));
-const ErrorPage      = lazy(() => import('@pages/Errors/ErrorPage'));
-const NotFoundPage   = lazy(() => import('@pages/Errors/NotFoundPage'));
+const CreateCallPage  = lazy(() => import('@pages/Calls/CreateCallPage'));
+const ProfilePage     = lazy(() => import('@pages/Profile/ProfilePage'));
+const ErrorPage       = lazy(() => import('@pages/Errors/ErrorPage'));
+const NotFoundPage    = lazy(() => import('@pages/Errors/NotFoundPage'));
+const RegisterPage    = lazy(() => import('@pages/Register/RegisterPage'));
 
 function PageLoader() {
   return (
@@ -25,6 +26,8 @@ function PageLoader() {
   );
 }
 
+// RootLayout: precisa ficar DENTRO do RouterProvider para que
+// useNavigate() funcione dentro do AuthContext
 function RootLayout() {
   return (
     <AuthProvider>
@@ -46,50 +49,43 @@ export const router = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
-
-      { path: '/login', element: <LoginPage /> },
-
-      { path: '/', element: <Navigate to="/dashboard" replace /> },
-
+      { path: '/login',    element: <LoginPage /> },
+      { path: '/register', element: <Suspense fallback={<PageLoader />}><RegisterPage /></Suspense> },
+      { path: '/',         element: <Navigate to="/login" replace /> },
       {
         element: <ProtectedRoute />,
         children: [
           {
-            path: '/dashboard',
-            element: <Suspense fallback={<PageLoader />}><DashboardPage /></Suspense>,
-          },
-          {
-            path: '/calls',
-            element: <Suspense fallback={<PageLoader />}><CallsListPage /></Suspense>,
-          },
-          {
-            path: '/calls/:id',
-            element: <Suspense fallback={<PageLoader />}><CallDetailsPage /></Suspense>,
-          },
-          {
-            path: '/profile',
-            element: <Suspense fallback={<PageLoader />}><ProfilePage /></Suspense>,
-          },
-          {
-            element: <ProtectedRoute roles={[UserRole.TECH, UserRole.ADMIN]} />,
+            element: <Layout />,
             children: [
+              {
+                path: '/dashboard',
+                element: <Suspense fallback={<PageLoader />}><DashboardPage /></Suspense>,
+              },
+              {
+                path: '/calls',
+                element: <Suspense fallback={<PageLoader />}><CallsListPage /></Suspense>,
+              },
+              {
+                path: '/calls/:id',
+                element: <Suspense fallback={<PageLoader />}><CallDetailsPage /></Suspense>,
+              },
               {
                 path: '/calls/new',
                 element: <Suspense fallback={<PageLoader />}><CreateCallPage /></Suspense>,
+              },
+              {
+                path: '/profile',
+                element: <Suspense fallback={<PageLoader />}><ProfilePage /></Suspense>,
               },
             ],
           },
         ],
       },
 
-      {
-        path: '/error',
-        element: <Suspense fallback={<PageLoader />}><ErrorPage /></Suspense>,
-      },
-      {
-        path: '*',
-        element: <Suspense fallback={<PageLoader />}><NotFoundPage /></Suspense>,
-      },
+
+      { path: '/error', element: <Suspense fallback={<PageLoader />}><ErrorPage /></Suspense> },
+      { path: '*',      element: <Suspense fallback={<PageLoader />}><NotFoundPage /></Suspense> },
     ],
   },
 ]);
