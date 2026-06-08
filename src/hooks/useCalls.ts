@@ -44,7 +44,7 @@ export function useCreateCall() {
         beginDate: formData.beginDate,
         techLogin: formData.techLogin,
         asset: formData.asset,
-        assetsType: formData.assetsType,
+        assetType: formData.assetType,
         department: formData.department,
         firstAnalysis: formData.firstAnalysis,
       };

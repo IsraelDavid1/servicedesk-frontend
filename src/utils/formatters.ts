@@ -1,10 +1,18 @@
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
+
 export const formatDateForApi = (date: Date): string => {
-  return date.toISOString().slice(0, 19);
+  const pad = (n: number) => String(n).padStart(2, '0');
+
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 };
 
+/**
+ * Formata uma string ISO vinda da API para exibição amigável em PT-BR.
+ * 
+ * Exemplo: "2024-01-15T10:30:00" → "15/01/2024 às 10:30"
+ */
 export const formatDateDisplay = (isoString: string | null): string => {
   if (!isoString) return '—';
   try {
@@ -15,6 +23,11 @@ export const formatDateDisplay = (isoString: string | null): string => {
   }
 };
 
+/**
+ * Formata apenas a data (sem hora).
+ * 
+ * Exemplo: "2024-01-15T10:30:00" → "15/01/2024"
+ */
 export const formatDateOnly = (isoString: string | null): string => {
   if (!isoString) return '—';
   try {
@@ -24,7 +37,11 @@ export const formatDateOnly = (isoString: string | null): string => {
   }
 };
 
-
+/**
+ * Calcula a duração entre duas datas e retorna em texto.
+ * 
+ * Exemplo: início 10:00, fim 11:30 → "1h 30min"
+ */
 export const formatDuration = (
   beginDate: string,
   endDate: string | null
@@ -49,6 +66,11 @@ export const formatDuration = (
   }
 };
 
+/**
+ * Trunca um texto longo com reticências.
+ * 
+ * Exemplo: truncate("Texto muito longo aqui", 10) → "Texto muit..."
+ */
 export const truncate = (text: string, maxLength: number): string => {
   if (text.length <= maxLength) return text;
   return `${text.slice(0, maxLength)}...`;

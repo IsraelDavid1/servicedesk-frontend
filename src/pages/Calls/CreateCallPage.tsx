@@ -30,7 +30,7 @@ export default function CreateCallPage() {
     // conhece logins de técnicos. O admin pode reatribuir depois.
     techLogin: isTechOrAdmin ? '' : (user?.login ?? ''),
     asset: '' as Assets | '',
-    assetsType: '' as AssetsType | '',
+    assetType: '' as AssetsType | '',
     department: user?.department ?? '',
     firstAnalysis: '',
     beginDate: new Date().toISOString().slice(0, 10),
@@ -44,7 +44,7 @@ export default function CreateCallPage() {
     const e: Record<string, string> = {};
     if (isTechOrAdmin && !form.techLogin.trim()) e['techLogin'] = 'Informe o login do técnico';
     if (!form.asset) e['asset'] = 'Selecione um ativo';
-    if (!form.assetsType) e['assetsType'] = 'Selecione o tipo';
+    if (!form.assetType) e['assetType'] = 'Selecione o tipo';
     if (!form.department.trim()) e['department'] = 'Informe o departamento';
     if (form.firstAnalysis.trim().length < 10) e['firstAnalysis'] = 'Análise deve ter pelo menos 10 caracteres';
     setErrors(e);
@@ -57,10 +57,10 @@ export default function CreateCallPage() {
     await createCall.mutateAsync({
       techLogin: form.techLogin,
       asset: form.asset as Assets,
-      assetsType: form.assetsType as AssetsType,
+      assetType: form.assetType as AssetsType,
       department: form.department,
       firstAnalysis: form.firstAnalysis,
-      beginDate: new Date(form.beginDate),
+      beginDate: new Date(`${form.beginDate}T${new Date().toTimeString().slice(0,8)}`),
     });
     navigate(ROUTES.CALLS);
   };
@@ -134,7 +134,7 @@ export default function CreateCallPage() {
             <select
               style={selectStyle}
               value={form.asset}
-              onChange={e => setForm(p => ({ ...p, asset: e.target.value as Assets, assetsType: '' }))}
+              onChange={e => setForm(p => ({ ...p, asset: e.target.value as Assets, assetType: '' }))}
             >
               <option value="">Selecione o tipo de ativo...</option>
               {Object.values(Assets).map(a => (
@@ -151,9 +151,9 @@ export default function CreateCallPage() {
             <label style={labelStyle}>Tipo de ativo *</label>
             <select
               style={{ ...selectStyle, opacity: !form.asset ? 0.5 : 1 }}
-              value={form.assetsType}
+              value={form.assetType}
               disabled={!form.asset}
-              onChange={e => setForm(p => ({ ...p, assetsType: e.target.value as AssetsType }))}
+              onChange={e => setForm(p => ({ ...p, assetType: e.target.value as AssetsType }))}
             >
               <option value="">
                 {form.asset ? 'Selecione o tipo...' : 'Selecione um ativo primeiro'}
@@ -162,8 +162,8 @@ export default function CreateCallPage() {
                 <option key={t} value={t}>{ASSETS_TYPE_LABELS[t]}</option>
               ))}
             </select>
-            {errors['assetsType'] && (
-              <span style={{ color: '#ef4444', fontSize: '13px' }}>{errors['assetsType']}</span>
+            {errors['assetType'] && (
+              <span style={{ color: '#ef4444', fontSize: '13px' }}>{errors['assetType']}</span>
             )}
           </div>
 
