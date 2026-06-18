@@ -1,75 +1,146 @@
-# React + TypeScript + Vite
+# Service Desk Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web para gerenciamento de chamados técnicos, desenvolvida com React e TypeScript. Permite que usuários, técnicos e administradores realizem todas as operações do sistema através de uma interface moderna e responsiva.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 💻 Sobre o projeto
 
-## React Compiler
+O **Service Desk Frontend** é a camada visual da plataforma de gerenciamento de chamados.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+A aplicação consome a API REST do backend para fornecer autenticação, abertura de chamados, acompanhamento de solicitações e gerenciamento operacional do Service Desk.
 
-Note: This will impact Vite dev & build performances.
+Foi desenvolvida com foco em desempenho, experiência do usuário e integração com ambientes Docker.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Tecnologias
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+As principais tecnologias utilizadas no projeto são:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* React
+* TypeScript
+* Vite
+* React Router DOM
+* Axios
+* CSS Modules
+* JWT Authentication
+* Docker
+* Nginx
+* GitHub Actions
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 📦 Como baixar e executar o projeto
+
+### Clonar o repositório
+
+```bash
+git clone https://github.com/IsraelDavid1/servicedesk-frontend.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd servicedesk-frontend
 ```
+
+### Instalar dependências
+
+```bash
+npm install
+```
+
+### Configurar ambiente
+
+Crie um arquivo:
+
+```bash
+.env
+```
+
+Exemplo:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+### Executar em modo desenvolvimento
+
+```bash
+npm run dev
+```
+
+Aplicação disponível em:
+
+```text
+http://localhost:5173
+```
+
+### Build de produção
+
+```bash
+npm run build
+```
+
+### Executar com Docker
+
+```bash
+docker-compose up -d
+```
+
+---
+
+## 🛠️ Funcionalidades
+
+* Login seguro com JWT
+* Dashboard de chamados
+* Criação de chamados
+* Consulta de chamados
+* Atualização de status
+* Visualização de detalhes
+* Controle de perfis
+* Interface responsiva
+* Integração com API REST
+* Navegação protegida por autentação
+
+---
+
+## 🤝 Como contribuir
+
+1. Faça um Fork do projeto
+
+2. Crie uma branch
+
+```bash
+git checkout -b feature/minha-feature
+```
+
+3. Faça suas alterações
+
+4. Realize commit
+
+```bash
+git commit -m "feat: nova funcionalidade"
+```
+
+5. Envie para o GitHub
+
+```bash
+git push origin feature/minha-feature
+```
+
+6. Abra um Pull Request
+
+---
+
+## 📝 Licença
+
+Este projeto está licenciado sob a licença MIT.
+
+---
+
+## 👤 Autor
+
+**Israel David**
+
+GitHub:
+https://github.com/IsraelDavid1

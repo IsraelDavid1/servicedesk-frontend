@@ -10,6 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'icons/*.png', 'icons/*.svg'],
       manifest: {
+        id: '/',
         name: 'Service Desk Corporate',
         short_name: 'ServiceDesk',
         description: 'Sistema corporativo de gerenciamento de chamados',

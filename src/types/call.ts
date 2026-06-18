@@ -18,7 +18,7 @@ export interface CreateCallDTO {
   beginDate: string;
   techLogin: string;
   asset: Assets;
-  assetsType: AssetsType;
+  assetType: AssetsType;
   department: string;
   firstAnalysis: string;
 }
@@ -37,7 +37,7 @@ export interface CallFormData {
   beginDate: Date;
   techLogin: string;
   asset: Assets;
-  assetsType: AssetsType;
+  assetType: AssetsType;
   department: string;
   firstAnalysis: string;
   solution?: string;

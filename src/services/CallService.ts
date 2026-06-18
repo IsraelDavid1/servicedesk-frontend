@@ -25,15 +25,16 @@ export const CallService = {
   },
 
   async finish(callId: string, finishData: FinishCallDTO): Promise<CallResponseDTO> {
-    const payload: FinishCallDTO = {
-      ...finishData,
-      endDate: finishData.endDate
+    const payload = {
+      solution: finishData.solution,
+      endDate: formatDateForApi(finishData.endDate)
     };
-    
+
     const response = await api.patch<CallResponseDTO>(
-      `${CALL_ENDPOINTS.BASE}/${callId}`, 
+      `${CALL_ENDPOINTS.BASE}/${callId}`,
       payload
     );
+
     return response.data;
   },
 
