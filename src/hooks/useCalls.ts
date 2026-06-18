@@ -22,7 +22,7 @@ export function useMyCalls() {
   return useQuery({
     queryKey: QUERY_KEYS.MY_CALLS,
     queryFn: CallService.getMyCalls,
-    staleTime: 1000 * 60 * 1,
+    staleTime: 1000 * 60,
   });
 }
 
